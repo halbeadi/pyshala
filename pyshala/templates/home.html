@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% block title %}Pyshala — Learn Python Free{% endblock %}
+
+{% block content %}
+
+<section class="px-6 py-20 text-center">
+  <div class="max-w-4xl mx-auto">
+    <div class="inline-flex items-center gap-2 bg-blue-900/30 border border-blue-800/50 text-blue-400 text-sm px-4 py-2 rounded-full mb-6">
+      🐍 Free Python Learning Platform
+    </div>
+    <h1 class="text-5xl font-bold text-white mb-6 leading-tight">
+      Learn Python the <span class="text-blue-500">Right Way</span>
+    </h1>
+    <p class="text-gray-400 text-xl mb-10 max-w-2xl mx-auto">
+      Interactive lessons, hands-on coding, quizzes and an AI tutor — all completely free.
+    </p>
+    <div class="flex items-center justify-center gap-4">
+      <a href="/accounts/signup/" class="bg-blue-600 hover:bg-blue-500 text-white px-8 py-4 rounded-xl font-semibold text-lg transition">
+        Start Learning Free →
+      </a>
+      <a href="/interpreter/" class="bg-gray-800 hover:bg-gray-700 text-white px-8 py-4 rounded-xl font-semibold text-lg transition">
+        Try Interpreter
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="px-6 py-10 border-y border-gray-800">
+  <div class="max-w-4xl mx-auto grid grid-cols-3 gap-8 text-center">
+    <div>
+      <div class="text-3xl font-bold text-white">140+</div>
+      <div class="text-gray-500 text-sm mt-1">Students Taught</div>
+    </div>
+    <div>
+      <div class="text-3xl font-bold text-white">Free</div>
+      <div class="text-gray-500 text-sm mt-1">Forever</div>
+    </div>
+    <div>
+      <div class="text-3xl font-bold text-white">AI</div>
+      <div class="text-gray-500 text-sm mt-1">Powered Tutor</div>
+    </div>
+  </div>
+</section>
+
+<section class="px-6 py-20">
+  <div class="max-w-6xl mx-auto">
+    <h2 class="text-3xl font-bold text-white text-center mb-12">Everything You Need to Learn Python</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div class="bg-gray-900 border border-gray-800 rounded-xl p-6 hover:border-blue-700 transition">
+        <div class="text-3xl mb-4">📚</div>
+        <h3 class="text-white font-semibold mb-2">Structured Courses</h3>
+        <p class="text-gray-500 text-sm">Step by step Python lessons from beginner to advanced.</p>
+      </div>
+      <div class="bg-gray-900 border border-gray-800 rounded-xl p-6 hover:border-blue-700 transition">
+        <div class="text-3xl mb-4">⚡</div>
+        <h3 class="text-white font-semibold mb-2">Live Interpreter</h3>
+        <p class="text-gray-500 text-sm">Write and run Python code directly in your browser.</p>
+      </div>
+      <div class="bg-gray-900 border border-gray-800 rounded-xl p-6 hover:border-blue-700 transition">
+        <div class="text-3xl mb-4">🧠</div>
+        <h3 class="text-white font-semibold mb-2">AI Tutor</h3>
+        <p class="text-gray-500 text-sm">Ask anything about Python and get instant answers.</p>
+      </div>
+      <div class="bg-gray-900 border border-gray-800 rounded-xl p-6 hover:border-blue-700 transition">
+        <div class="text-3xl mb-4">✅</div>
+        <h3 class="text-white font-semibold mb-2">Quizzes</h3>
+        <p class="text-gray-500 text-sm">Test your knowledge with topic wise quizzes.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}
