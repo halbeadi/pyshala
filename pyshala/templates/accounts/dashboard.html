@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block title %}Dashboard — Pyshala{% endblock %}
+
+{% block content %}
+<div class="max-w-6xl mx-auto px-6 py-12">
+
+  <!-- Welcome -->
+  <div class="mb-10">
+    <h1 class="text-3xl font-bold text-white">Welcome back, {{ user.username }}! 👋</h1>
+    <p class="text-gray-400 mt-2">Continue where you left off.</p>
+  </div>
+
+  <!-- Stats -->
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+    <div class="bg-gray-900 border border-gray-800 rounded-xl p-6">
+      <div class="text-gray-400 text-sm mb-1">Courses Enrolled</div>
+      <div class="text-3xl font-bold text-white">0</div>
+    </div>
+    <div class="bg-gray-900 border border-gray-800 rounded-xl p-6">
+      <div class="text-gray-400 text-sm mb-1">Lessons Completed</div>
+      <div class="text-3xl font-bold text-white">0</div>
+    </div>
+    <div class="bg-gray-900 border border-gray-800 rounded-xl p-6">
+      <div class="text-gray-400 text-sm mb-1">Quizzes Passed</div>
+      <div class="text-3xl font-bold text-white">0</div>
+    </div>
+  </div>
+
+  <!-- Quick Links -->
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <a href="/courses/" class="bg-gray-900 border border-gray-800 hover:border-blue-700 rounded-xl p-6 transition">
+      <div class="text-3xl mb-3">📚</div>
+      <h3 class="text-white font-semibold text-lg mb-1">Browse Courses</h3>
+      <p class="text-gray-500 text-sm">Start learning Python from scratch</p>
+    </a>
+    <a href="/interpreter/" class="bg-gray-900 border border-gray-800 hover:border-blue-700 rounded-xl p-6 transition">
+      <div class="text-3xl mb-3">⚡</div>
+      <h3 class="text-white font-semibold text-lg mb-1">Python Interpreter</h3>
+      <p class="text-gray-500 text-sm">Practice coding in your browser</p>
+    </a>
+    <a href="/quiz/" class="bg-gray-900 border border-gray-800 hover:border-blue-700 rounded-xl p-6 transition">
+      <div class="text-3xl mb-3">✅</div>
+      <h3 class="text-white font-semibold text-lg mb-1">Take a Quiz</h3>
+      <p class="text-gray-500 text-sm">Test your Python knowledge</p>
+    </a>
+    <a href="/ai-tutor/" class="bg-gray-900 border border-gray-800 hover:border-blue-700 rounded-xl p-6 transition">
+      <div class="text-3xl mb-3">🧠</div>
+      <h3 class="text-white font-semibold text-lg mb-1">AI Tutor</h3>
+      <p class="text-gray-500 text-sm">Ask anything about Python</p>
+    </a>
+  </div>
+
+</div>
+{% endblock %}
