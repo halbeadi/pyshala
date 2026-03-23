@@ -1,0 +1,169 @@
+{% extends 'base.html' %}
+{% block title %}AI Tutor — Pyshala{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto px-6 py-8">
+
+  <!-- Header -->
+  <div class="mb-8 text-center">
+    <div class="text-5xl mb-3">🧠</div>
+    <h1 class="text-3xl font-bold text-white mb-2">AI Python Tutor</h1>
+    <p class="text-gray-400">Ask me anything about Python — I am here to help you learn!</p>
+  </div>
+
+  <!-- Chat Container -->
+  <div class="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden">
+
+    <!-- Chat Messages -->
+    <div id="chat-messages" class="h-96 overflow-y-auto p-6 space-y-4">
+      <!-- Welcome message -->
+      <div class="flex gap-3">
+        <div class="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white text-sm font-bold flex-shrink-0">AI</div>
+        <div class="bg-gray-800 rounded-2xl rounded-tl-none px-4 py-3 max-w-lg">
+          <p class="text-gray-300 text-sm">Hello! I am your Python tutor. Ask me anything about Python — variables, loops, functions, OOP, or anything else you want to learn! 🐍</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Suggested Questions -->
+    <div class="px-6 py-3 border-t border-gray-800">
+      <p class="text-gray-600 text-xs mb-2">Quick questions:</p>
+      <div class="flex gap-2 flex-wrap">
+        <button onclick="askSuggested('What is a Python list?')"
+          class="text-xs bg-gray-800 hover:bg-gray-700 text-gray-400 hover:text-white px-3 py-1.5 rounded-full transition border border-gray-700">
+          What is a Python list?
+        </button>
+        <button onclick="askSuggested('Explain Python functions')"
+          class="text-xs bg-gray-800 hover:bg-gray-700 text-gray-400 hover:text-white px-3 py-1.5 rounded-full transition border border-gray-700">
+          Explain Python functions
+        </button>
+        <button onclick="askSuggested('What is OOP in Python?')"
+          class="text-xs bg-gray-800 hover:bg-gray-700 text-gray-400 hover:text-white px-3 py-1.5 rounded-full transition border border-gray-700">
+          What is OOP in Python?
+        </button>
+        <button onclick="askSuggested('How do loops work?')"
+          class="text-xs bg-gray-800 hover:bg-gray-700 text-gray-400 hover:text-white px-3 py-1.5 rounded-full transition border border-gray-700">
+          How do loops work?
+        </button>
+      </div>
+    </div>
+
+    <!-- Input Area -->
+    <div class="px-6 py-4 border-t border-gray-800">
+      <div class="flex gap-3">
+        <input id="user-input" type="text"
+          placeholder="Ask anything about Python..."
+          class="flex-1 bg-gray-800 border border-gray-700 text-white rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-blue-500 transition"
+          onkeypress="handleKeyPress(event)"/>
+        <button onclick="sendMessage()"
+          id="send-btn"
+          class="bg-blue-600 hover:bg-blue-500 text-white px-5 py-3 rounded-xl transition font-medium text-sm">
+          Send
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  function handleKeyPress(e) {
+    if (e.key === 'Enter') sendMessage();
+  }
+
+  function askSuggested(question) {
+    document.getElementById('user-input').value = question;
+    sendMessage();
+  }
+
+  async function sendMessage() {
+    const input = document.getElementById('user-input');
+    const message = input.value.trim();
+    if (!message) return;
+
+    // Add user message
+    addMessage(message, 'user');
+    input.value = '';
+
+    // Show typing indicator
+    const typingId = addTyping();
+
+    // Disable send button
+    const btn = document.getElementById('send-btn');
+    btn.disabled = true;
+    btn.textContent = '...';
+
+    try {
+      const response = await fetch('/ai-tutor/ask/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: message })
+      });
+
+      const data = await response.json();
+      removeTyping(typingId);
+
+      if (data.response) {
+        addMessage(data.response, 'ai');
+      } else {
+        addMessage('Sorry, something went wrong. Please try again!', 'ai');
+      }
+    } catch(e) {
+      removeTyping(typingId);
+      addMessage('Connection error. Please try again!', 'ai');
+    }
+
+    btn.disabled = false;
+    btn.textContent = 'Send';
+  }
+
+  function addMessage(text, sender) {
+    const container = document.getElementById('chat-messages');
+    const isAI = sender === 'ai';
+
+    const div = document.createElement('div');
+    div.className = `flex gap-3 ${isAI ? '' : 'flex-row-reverse'}`;
+
+    const avatar = document.createElement('div');
+    avatar.className = `w-8 h-8 rounded-full flex items-center justify-center text-white text-xs font-bold flex-shrink-0 ${isAI ? 'bg-blue-600' : 'bg-gray-600'}`;
+    avatar.textContent = isAI ? 'AI' : 'You';
+
+    const bubble = document.createElement('div');
+    bubble.className = `rounded-2xl px-4 py-3 max-w-lg text-sm whitespace-pre-wrap ${isAI ? 'bg-gray-800 rounded-tl-none text-gray-300' : 'bg-blue-600 rounded-tr-none text-white'}`;
+    bubble.textContent = text;
+
+    div.appendChild(avatar);
+    div.appendChild(bubble);
+    container.appendChild(div);
+    container.scrollTop = container.scrollHeight;
+  }
+
+  function addTyping() {
+    const container = document.getElementById('chat-messages');
+    const id = 'typing-' + Date.now();
+    const div = document.createElement('div');
+    div.id = id;
+    div.className = 'flex gap-3';
+    div.innerHTML = `
+      <div class="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white text-xs font-bold">AI</div>
+      <div class="bg-gray-800 rounded-2xl rounded-tl-none px-4 py-3">
+        <div class="flex gap-1 items-center h-4">
+          <div class="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style="animation-delay:0ms"></div>
+          <div class="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style="animation-delay:150ms"></div>
+          <div class="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style="animation-delay:300ms"></div>
+        </div>
+      </div>`;
+    container.appendChild(div);
+    container.scrollTop = container.scrollHeight;
+    return id;
+  }
+
+  function removeTyping(id) {
+    const el = document.getElementById(id);
+    if (el) el.remove();
+  }
+</script>
+{% endblock %}
