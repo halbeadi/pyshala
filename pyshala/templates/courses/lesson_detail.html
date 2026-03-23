@@ -37,9 +37,9 @@
         ☰
       </button>
       <a href="/courses/{{ course.slug }}/" class="text-gray-400 hover:text-white text-sm transition">
-        <- {{ course.title }}
+        &larr; {{ course.title }}
       </a>
-      <span class="text-gray-600">></span>
+      <span class="text-gray-600">&rsaquo;</span>
       <span class="text-white text-sm font-medium">{{ lesson.title }}</span>
     </div>
     <div class="flex items-center gap-3">
@@ -93,14 +93,56 @@
         <div class="mb-6">
           <div class="flex items-center gap-2 mb-2">
             <span class="text-xs text-blue-400 font-medium uppercase tracking-wider">{{ course.title }}</span>
-            <span class="text-gray-600">·</span>
+            <span class="text-gray-600">&middot;</span>
             <span class="text-xs text-gray-500">Lesson {{ lesson.order }}</span>
           </div>
           <h1 class="text-2xl font-bold text-white">{{ lesson.title }}</h1>
         </div>
+
+        <!-- Lesson Content -->
         <div class="lesson-content">
           {{ lesson.content|linebreaks }}
         </div>
+
+        <!-- Hint & Answer Section -->
+        {% if lesson.hint or lesson.answer %}
+        <div class="mt-8 pt-6 border-t border-gray-800">
+          <p class="text-white font-semibold mb-4">🤔 Stuck? Need Help?</p>
+          <div class="space-y-3">
+
+            {% if lesson.hint %}
+            <div>
+              <button onclick="toggleHint()"
+                id="hint-btn"
+                class="flex items-center gap-2 bg-yellow-600/20 hover:bg-yellow-600/30 text-yellow-400 border border-yellow-600/30 px-4 py-2 rounded-lg transition text-sm font-medium">
+                💡 Show Hint
+              </button>
+              <div id="hint-box" class="hidden mt-3 bg-yellow-900/20 border border-yellow-800/40 rounded-xl p-4">
+                <p class="text-yellow-400 text-xs font-semibold uppercase tracking-wider mb-2">Hint</p>
+                <p class="text-gray-300 text-sm leading-relaxed">{{ lesson.hint }}</p>
+              </div>
+            </div>
+            {% endif %}
+
+            {% if lesson.answer %}
+            <div>
+              <button onclick="toggleAnswer()"
+                id="answer-btn"
+                class="flex items-center gap-2 bg-green-600/20 hover:bg-green-600/30 text-green-400 border border-green-600/30 px-4 py-2 rounded-lg transition text-sm font-medium">
+                ✅ Show Answer
+              </button>
+              <div id="answer-box" class="hidden mt-3 bg-green-900/20 border border-green-800/40 rounded-xl p-4">
+                <p class="text-green-400 text-xs font-semibold uppercase tracking-wider mb-2">Answer</p>
+                <pre class="text-gray-300 text-sm leading-relaxed font-mono whitespace-pre-wrap">{{ lesson.answer }}</pre>
+              </div>
+            </div>
+            {% endif %}
+
+          </div>
+        </div>
+        {% endif %}
+
+        <!-- Bottom Navigation -->
         <div class="flex gap-3 mt-10 pt-6 border-t border-gray-800">
           {% if prev_lesson %}
           <a href="/courses/{{ course.slug }}/{{ prev_lesson.slug }}/"
@@ -120,6 +162,7 @@
           </a>
           {% endif %}
         </div>
+
       </div>
     </div>
 
@@ -169,6 +212,20 @@
 
   function toggleSidebar() {
     document.getElementById("lesson-sidebar").classList.toggle("hidden");
+  }
+
+  function toggleHint() {
+    const box = document.getElementById("hint-box");
+    const btn = document.getElementById("hint-btn");
+    box.classList.toggle("hidden");
+    btn.textContent = box.classList.contains("hidden") ? "💡 Show Hint" : "💡 Hide Hint";
+  }
+
+  function toggleAnswer() {
+    const box = document.getElementById("answer-box");
+    const btn = document.getElementById("answer-btn");
+    box.classList.toggle("hidden");
+    btn.textContent = box.classList.contains("hidden") ? "✅ Show Answer" : "✅ Hide Answer";
   }
 
   async function runCode() {

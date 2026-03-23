@@ -21,6 +21,8 @@ class Lesson(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='lessons')
     title = models.CharField(max_length=200)
     content = models.TextField()
+    hint = models.TextField(blank=True, null=True)
+    answer = models.TextField(blank=True, null=True)
     video_url = models.URLField(blank=True, null=True)
     slug = models.SlugField()
     order = models.IntegerField(default=0)
@@ -45,4 +47,3 @@ class Progress(models.Model):
 
     def __str__(self):
         return f"{self.user.username} - {self.lesson.title}"
-
