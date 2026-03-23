@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% block title %}Quiz Result — Pyshala{% endblock %}
+
+{% block content %}
+<div class="max-w-3xl mx-auto px-6 py-12">
+
+  <div class="text-center mb-10">
+    {% if passed %}
+      <div class="text-6xl mb-4">🎉</div>
+      <h1 class="text-3xl font-bold text-green-400 mb-2">You Passed!</h1>
+    {% else %}
+      <div class="text-6xl mb-4">😅</div>
+      <h1 class="text-3xl font-bold text-red-400 mb-2">Keep Practicing!</h1>
+    {% endif %}
+    <div class="inline-flex items-center gap-2 mt-4">
+      <span class="text-5xl font-bold text-white">{{ percentage }}%</span>
+    </div>
+    <p class="text-gray-400 mt-2">{{ score }} out of {{ total }} correct</p>
+    <div class="w-full bg-gray-800 rounded-full h-3 mt-4 max-w-md mx-auto">
+      <div class="h-3 rounded-full {% if passed %}bg-green-500{% else %}bg-red-500{% endif %}" style="width: {{ percentage }}%"></div>
+    </div>
+  </div>
+
+  <div class="space-y-4 mb-8">
+    <h2 class="text-white font-semibold text-xl">Answer Review</h2>
+    {% for result in results %}
+    <div class="bg-gray-900 border rounded-xl p-5 {% if result.is_correct %}border-green-800{% else %}border-red-800{% endif %}">
+      <div class="flex items-start gap-3">
+        <span class="text-lg mt-0.5">{% if result.is_correct %}correct{% else %}wrong{% endif %}</span>
+        <div class="flex-1">
+          <p class="text-white font-medium mb-3">Q{{ forloop.counter }}. {{ result.question.text }}</p>
+          {% if result.selected %}
+            <p class="text-sm mb-1 {% if result.is_correct %}text-green-400{% else %}text-red-400{% endif %}">Your answer: {{ result.selected.text }}</p>
+          {% else %}
+            <p class="text-red-400 text-sm mb-1">No answer selected</p>
+          {% endif %}
+          {% if not result.is_correct %}
+            <p class="text-green-400 text-sm">Correct answer: {{ result.correct.text }}</p>
+          {% endif %}
+          {% if result.question.explanation %}
+            <p class="text-gray-500 text-xs mt-2 italic">{{ result.question.explanation }}</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+  <div class="flex gap-4">
+    <a href="/quiz/{{ quiz.slug }}/" class="flex-1 text-center bg-blue-600 hover:bg-blue-500 text-white font-semibold py-3 rounded-xl transition">Try Again</a>
+    <a href="/quiz/" class="flex-1 text-center bg-gray-800 hover:bg-gray-700 text-white font-semibold py-3 rounded-xl transition">All Quizzes</a>
+  </div>
+
+</div>
+{% endblock %}
