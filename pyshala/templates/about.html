@@ -1,0 +1,136 @@
+{% extends 'base.html' %}
+{% block title %}About — Pyshala{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto px-6 py-16">
+
+  <!-- Hero -->
+  <div class="text-center mb-16">
+    <div class="w-16 h-16 bg-blue-600 rounded-2xl flex items-center justify-center font-bold text-white text-3xl mx-auto mb-6">P</div>
+    <h1 class="text-4xl font-bold text-white mb-4">About Pyshala</h1>
+    <p class="text-gray-400 text-xl max-w-2xl mx-auto leading-relaxed">
+      A free Python learning platform built with passion — from Bhopal, for the world.
+    </p>
+  </div>
+
+  <!-- Story -->
+  <div class="bg-gray-900 border border-gray-800 rounded-2xl p-8 mb-8">
+    <h2 class="text-2xl font-bold text-white mb-4">Our Story</h2>
+    <div class="text-gray-400 leading-relaxed space-y-4">
+      <p>
+        Pyshala was born from a simple belief — quality tech education should be free and accessible to every Indian student, regardless of their background or location.
+      </p>
+      <p>
+        I'm Aditya Halbe, a self-taught developer from Bhopal. In 2020, I built the first version of this platform called Datapedia, which enrolled 140+ students learning Python, SQL, and Data Science. That experience taught me how hungry students are for quality, practical tech education.
+      </p>
+      <p>
+        In 2025, I rebuilt the platform from scratch with modern technology — Django, Tailwind CSS, AWS cloud infrastructure, Docker, and an AI-powered tutor — and renamed it Pyshala. "Py" for Python, "Shala" for school in Hindi.
+      </p>
+      <p>
+        Pyshala is completely free. No paywalls. No subscriptions. Just pure learning.
+      </p>
+    </div>
+  </div>
+
+  <!-- Stats -->
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+    <div class="bg-gray-900 border border-gray-800 rounded-xl p-6 text-center">
+      <div class="text-3xl font-bold text-blue-400 mb-1">140+</div>
+      <div class="text-gray-500 text-sm">Students Taught</div>
+    </div>
+    <div class="bg-gray-900 border border-gray-800 rounded-xl p-6 text-center">
+      <div class="text-3xl font-bold text-blue-400 mb-1">2020</div>
+      <div class="text-gray-500 text-sm">First Version</div>
+    </div>
+    <div class="bg-gray-900 border border-gray-800 rounded-xl p-6 text-center">
+      <div class="text-3xl font-bold text-blue-400 mb-1">Free</div>
+      <div class="text-gray-500 text-sm">Forever</div>
+    </div>
+    <div class="bg-gray-900 border border-gray-800 rounded-xl p-6 text-center">
+      <div class="text-3xl font-bold text-blue-400 mb-1">AI</div>
+      <div class="text-gray-500 text-sm">Powered Tutor</div>
+    </div>
+  </div>
+
+  <!-- Tech Stack -->
+  <div class="bg-gray-900 border border-gray-800 rounded-2xl p-8 mb-8">
+    <h2 class="text-2xl font-bold text-white mb-6">Built With</h2>
+    <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+      <div class="flex items-center gap-3 p-3 bg-gray-800 rounded-xl">
+        <span class="text-2xl">🐍</span>
+        <div>
+          <div class="text-white font-medium text-sm">Django</div>
+          <div class="text-gray-500 text-xs">Python Web Framework</div>
+        </div>
+      </div>
+      <div class="flex items-center gap-3 p-3 bg-gray-800 rounded-xl">
+        <span class="text-2xl">☁️</span>
+        <div>
+          <div class="text-white font-medium text-sm">AWS EC2</div>
+          <div class="text-gray-500 text-xs">Cloud Hosting</div>
+        </div>
+      </div>
+      <div class="flex items-center gap-3 p-3 bg-gray-800 rounded-xl">
+        <span class="text-2xl">🎨</span>
+        <div>
+          <div class="text-white font-medium text-sm">Tailwind CSS</div>
+          <div class="text-gray-500 text-xs">UI Framework</div>
+        </div>
+      </div>
+      <div class="flex items-center gap-3 p-3 bg-gray-800 rounded-xl">
+        <span class="text-2xl">🐘</span>
+        <div>
+          <div class="text-white font-medium text-sm">PostgreSQL</div>
+          <div class="text-gray-500 text-xs">Database</div>
+        </div>
+      </div>
+      <div class="flex items-center gap-3 p-3 bg-gray-800 rounded-xl">
+        <span class="text-2xl">🤖</span>
+        <div>
+          <div class="text-white font-medium text-sm">Claude AI</div>
+          <div class="text-gray-500 text-xs">AI Tutor</div>
+        </div>
+      </div>
+      <div class="flex items-center gap-3 p-3 bg-gray-800 rounded-xl">
+        <span class="text-2xl">🐳</span>
+        <div>
+          <div class="text-white font-medium text-sm">Docker</div>
+          <div class="text-gray-500 text-xs">Containerisation</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mission -->
+  <div class="bg-blue-900/20 border border-blue-800/40 rounded-2xl p-8 mb-8">
+    <h2 class="text-2xl font-bold text-white mb-4">Our Mission</h2>
+    <p class="text-gray-300 text-lg leading-relaxed">
+      "Make Python and Data Science learning accessible to every Indian student, for free — with the same quality as paid platforms."
+    </p>
+  </div>
+
+  <!-- Contact -->
+  <div class="bg-gray-900 border border-gray-800 rounded-2xl p-8">
+    <h2 class="text-2xl font-bold text-white mb-4">Get in Touch</h2>
+    <p class="text-gray-400 mb-6">Have questions, suggestions, or want to contribute? Reach out!</p>
+    <div class="flex flex-col sm:flex-row gap-4">
+      <a href="mailto:halbeadi@zohomail.in"
+         class="flex items-center gap-3 bg-gray-800 hover:bg-gray-700 px-5 py-3 rounded-xl transition">
+        <span class="text-xl">📧</span>
+        <span class="text-white font-medium">halbeadi@zohomail.in</span>
+      </a>
+      <a href="https://linkedin.com/in/aditya-halbe" target="_blank"
+         class="flex items-center gap-3 bg-gray-800 hover:bg-gray-700 px-5 py-3 rounded-xl transition">
+        <span class="text-xl">💼</span>
+        <span class="text-white font-medium">LinkedIn</span>
+      </a>
+      <a href="https://github.com/halbeadi" target="_blank"
+         class="flex items-center gap-3 bg-gray-800 hover:bg-gray-700 px-5 py-3 rounded-xl transition">
+        <span class="text-xl">💻</span>
+        <span class="text-white font-medium">GitHub</span>
+      </a>
+    </div>
+  </div>
+
+</div>
+{% endblock %}
