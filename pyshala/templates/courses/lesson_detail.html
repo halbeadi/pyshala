@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% block title %}{{ lesson.title }} — Pyshala{% endblock %}
+
+{% block content %}
+<div class="max-w-6xl mx-auto px-6 py-8">
+
+  <!-- Breadcrumb -->
+  <div class="flex items-center gap-2 text-sm text-gray-500 mb-6">
+    <a href="/courses/" class="hover:text-white transition">Courses</a>
+    <span>→</span>
+    <a href="/courses/{{ course.slug }}/" class="hover:text-white transition">{{ course.title }}</a>
+    <span>→</span>
+    <span class="text-white">{{ lesson.title }}</span>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+
+    <!-- Sidebar - Lesson List -->
+    <div class="lg:col-span-1 order-2 lg:order-1">
+      <div class="bg-gray-900 border border-gray-800 rounded-xl p-4 sticky top-24">
+        <h3 class="text-white font-semibold text-sm mb-3">{{ course.title }}</h3>
+        <div class="space-y-1">
+          {% for l in lessons %}
+          <a href="/courses/{{ course.slug }}/{{ l.slug }}/"
+             class="flex items-center gap-2 px-3 py-2 rounded-lg text-sm transition
+             {% if l.slug == lesson.slug %}bg-blue-600/20 text-blue-400 border border-blue-600/30
+             {% else %}text-gray-400 hover:text-white hover:bg-gray-800{% endif %}">
+            <span class="text-xs w-4 text-center">{{ forloop.counter }}</span>
+            <span class="truncate">{{ l.title }}</span>
+          </a>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="lg:col-span-3 order-1 lg:order-2">
+
+      <!-- Lesson Title -->
+      <div class="mb-6">
+        <div class="flex items-center gap-2 mb-2">
+          <span class="text-green-400 text-xs bg-green-900/30 border border-green-800 px-2 py-1 rounded-full">
+            ✓ Completed
+          </span>
+        </div>
+        <h1 class="text-2xl font-bold text-white">{{ lesson.title }}</h1>
+      </div>
+
+      <!-- Lesson Content -->
+      <div class="bg-gray-900 border border-gray-800 rounded-xl p-8 mb-6 prose prose-invert max-w-none">
+        <div class="text-gray-300 leading-relaxed whitespace-pre-wrap">{{ lesson.content }}</div>
+      </div>
+
+      <!-- Navigation -->
+      <div class="flex items-center justify-between">
+        {% if prev_lesson %}
+        <a href="/courses/{{ course.slug }}/{{ prev_lesson.slug }}/"
+           class="flex items-center gap-2 bg-gray-800 hover:bg-gray-700 text-white px-5 py-3 rounded-xl transition text-sm font-medium">
+          ← Previous
+        </a>
+        {% else %}
+        <div></div>
+        {% endif %}
+
+        {% if next_lesson %}
+        <a href="/courses/{{ course.slug }}/{{ next_lesson.slug }}/"
+           class="flex items-center gap-2 bg-blue-600 hover:bg-blue-500 text-white px-5 py-3 rounded-xl transition text-sm font-medium">
+          Next Lesson →
+        </a>
+        {% else %}
+        <a href="/courses/{{ course.slug }}/"
+           class="flex items-center gap-2 bg-green-600 hover:bg-green-500 text-white px-5 py-3 rounded-xl transition text-sm font-medium">
+          🎉 Course Complete!
+        </a>
+        {% endif %}
+      </div>
+
+    </div>
+  </div>
+</div>
+{% endblock %}
