@@ -1,31 +1,85 @@
 {% extends 'base.html' %}
 {% block title %}{{ lesson.title }} — Pyshala{% endblock %}
 
-{% block content %}
-<div class="max-w-6xl mx-auto px-6 py-8">
+{% block extra_head %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/dracula.min.css"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/python/python.min.js"></script>
+<style>
+  body { overflow: hidden; } nav { position: relative !important; }
+  .lesson-layout { height: calc(100vh - 57px); display: flex; flex-direction: column; }
+  .lesson-body { display: flex; flex: 1; overflow: hidden; }
+  .lesson-left { width: 45%; overflow-y: auto; border-right: 1px solid #1f2937; }
+  .lesson-right { width: 55%; display: flex; flex-direction: column; background: #1e1e2e; }
+  .CodeMirror { height: 100% !important; font-size: 14px; }
+  .CodeMirror-scroll { height: 100%; }
+  .editor-wrap { flex: 1; overflow: hidden; display: flex; flex-direction: column; }
+  .output-panel { height: 180px; border-top: 1px solid #1f2937; background: #0d1117; overflow-y: auto; }
+  .loader { width:14px;height:14px;border:2px solid #ffffff40;border-top:2px solid #fff;border-radius:50%;animation:spin 0.7s linear infinite;display:inline-block; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .lesson-sidebar { width: 260px; background: #0d1117; border-right: 1px solid #1f2937; overflow-y: auto; flex-shrink: 0; }
+  .lesson-sidebar.hidden { display: none; }
+  .lesson-content p { margin-bottom: 12px; line-height: 1.7; color: #d1d5db; }
+  .lesson-content h2 { color: #fff; font-size: 18px; font-weight: 700; margin: 20px 0 10px; }
+  .lesson-content ul { list-style: disc; padding-left: 20px; color: #d1d5db; margin-bottom: 12px; }
+  .lesson-content ul li { margin-bottom: 6px; line-height: 1.6; }
+</style>
+{% endblock %}
 
-  <!-- Breadcrumb -->
-  <div class="flex items-center gap-2 text-sm text-gray-500 mb-6">
-    <a href="/courses/" class="hover:text-white transition">Courses</a>
-    <span>→</span>
-    <a href="/courses/{{ course.slug }}/" class="hover:text-white transition">{{ course.title }}</a>
-    <span>→</span>
-    <span class="text-white">{{ lesson.title }}</span>
+{% block content %}
+<div class="lesson-layout">
+
+  <!-- Top Bar -->
+  <div class="flex items-center justify-between px-4 py-2 bg-gray-900 border-b border-gray-800 flex-shrink-0">
+    <div class="flex items-center gap-3">
+      <button onclick="toggleSidebar()" class="text-gray-400 hover:text-white transition p-1 rounded hover:bg-gray-800">
+        ☰
+      </button>
+      <a href="/courses/{{ course.slug }}/" class="text-gray-400 hover:text-white text-sm transition">
+        <- {{ course.title }}
+      </a>
+      <span class="text-gray-600">></span>
+      <span class="text-white text-sm font-medium">{{ lesson.title }}</span>
+    </div>
+    <div class="flex items-center gap-3">
+      {% if prev_lesson %}
+      <a href="/courses/{{ course.slug }}/{{ prev_lesson.slug }}/"
+         class="text-gray-400 hover:text-white text-sm px-3 py-1.5 rounded-lg hover:bg-gray-800 transition">
+        Back
+      </a>
+      {% endif %}
+      {% if next_lesson %}
+      <a href="/courses/{{ course.slug }}/{{ next_lesson.slug }}/"
+         class="bg-blue-600 hover:bg-blue-500 text-white text-sm px-4 py-1.5 rounded-lg transition font-medium">
+        Next
+      </a>
+      {% else %}
+      <a href="/courses/{{ course.slug }}/"
+         class="bg-green-600 hover:bg-green-500 text-white text-sm px-4 py-1.5 rounded-lg transition font-medium">
+        Complete
+      </a>
+      {% endif %}
+    </div>
   </div>
 
-  <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+  <div class="lesson-body">
 
-    <!-- Sidebar - Lesson List -->
-    <div class="lg:col-span-1 order-2 lg:order-1">
-      <div class="bg-gray-900 border border-gray-800 rounded-xl p-4 sticky top-24">
-        <h3 class="text-white font-semibold text-sm mb-3">{{ course.title }}</h3>
+    <!-- Sidebar -->
+    <div class="lesson-sidebar hidden" id="lesson-sidebar">
+      <div class="p-4">
+        <p class="text-gray-500 text-xs uppercase tracking-wider mb-3 font-semibold">Course Outline</p>
         <div class="space-y-1">
           {% for l in lessons %}
           <a href="/courses/{{ course.slug }}/{{ l.slug }}/"
              class="flex items-center gap-2 px-3 py-2 rounded-lg text-sm transition
              {% if l.slug == lesson.slug %}bg-blue-600/20 text-blue-400 border border-blue-600/30
              {% else %}text-gray-400 hover:text-white hover:bg-gray-800{% endif %}">
-            <span class="text-xs w-4 text-center">{{ forloop.counter }}</span>
+            <span class="text-xs w-5 h-5 flex items-center justify-center rounded-full
+              {% if l.slug == lesson.slug %}bg-blue-600 text-white
+              {% else %}bg-gray-800 text-gray-500{% endif %}">
+              {{ forloop.counter }}
+            </span>
             <span class="truncate">{{ l.title }}</span>
           </a>
           {% endfor %}
@@ -33,49 +87,120 @@
       </div>
     </div>
 
-    <!-- Main Content -->
-    <div class="lg:col-span-3 order-1 lg:order-2">
-
-      <!-- Lesson Title -->
-      <div class="mb-6">
-        <div class="flex items-center gap-2 mb-2">
-          <span class="text-green-400 text-xs bg-green-900/30 border border-green-800 px-2 py-1 rounded-full">
-            ✓ Completed
-          </span>
+    <!-- Left: Lesson Content -->
+    <div class="lesson-left">
+      <div class="p-8">
+        <div class="mb-6">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="text-xs text-blue-400 font-medium uppercase tracking-wider">{{ course.title }}</span>
+            <span class="text-gray-600">·</span>
+            <span class="text-xs text-gray-500">Lesson {{ lesson.order }}</span>
+          </div>
+          <h1 class="text-2xl font-bold text-white">{{ lesson.title }}</h1>
         </div>
-        <h1 class="text-2xl font-bold text-white">{{ lesson.title }}</h1>
+        <div class="lesson-content">
+          {{ lesson.content|linebreaks }}
+        </div>
+        <div class="flex gap-3 mt-10 pt-6 border-t border-gray-800">
+          {% if prev_lesson %}
+          <a href="/courses/{{ course.slug }}/{{ prev_lesson.slug }}/"
+             class="flex-1 text-center bg-gray-800 hover:bg-gray-700 text-white py-3 rounded-xl transition text-sm font-medium">
+            Previous
+          </a>
+          {% endif %}
+          {% if next_lesson %}
+          <a href="/courses/{{ course.slug }}/{{ next_lesson.slug }}/"
+             class="flex-1 text-center bg-blue-600 hover:bg-blue-500 text-white py-3 rounded-xl transition text-sm font-medium">
+            Next Lesson
+          </a>
+          {% else %}
+          <a href="/courses/{{ course.slug }}/"
+             class="flex-1 text-center bg-green-600 hover:bg-green-500 text-white py-3 rounded-xl transition text-sm font-medium">
+            Complete Course!
+          </a>
+          {% endif %}
+        </div>
       </div>
-
-      <!-- Lesson Content -->
-      <div class="bg-gray-900 border border-gray-800 rounded-xl p-8 mb-6 prose prose-invert max-w-none">
-        <div class="text-gray-300 leading-relaxed whitespace-pre-wrap">{{ lesson.content }}</div>
-      </div>
-
-      <!-- Navigation -->
-      <div class="flex items-center justify-between">
-        {% if prev_lesson %}
-        <a href="/courses/{{ course.slug }}/{{ prev_lesson.slug }}/"
-           class="flex items-center gap-2 bg-gray-800 hover:bg-gray-700 text-white px-5 py-3 rounded-xl transition text-sm font-medium">
-          ← Previous
-        </a>
-        {% else %}
-        <div></div>
-        {% endif %}
-
-        {% if next_lesson %}
-        <a href="/courses/{{ course.slug }}/{{ next_lesson.slug }}/"
-           class="flex items-center gap-2 bg-blue-600 hover:bg-blue-500 text-white px-5 py-3 rounded-xl transition text-sm font-medium">
-          Next Lesson →
-        </a>
-        {% else %}
-        <a href="/courses/{{ course.slug }}/"
-           class="flex items-center gap-2 bg-green-600 hover:bg-green-500 text-white px-5 py-3 rounded-xl transition text-sm font-medium">
-          🎉 Course Complete!
-        </a>
-        {% endif %}
-      </div>
-
     </div>
+
+    <!-- Right: Code Editor -->
+    <div class="lesson-right">
+      <div class="flex items-center justify-between px-4 py-2 bg-gray-900 border-b border-gray-800 flex-shrink-0">
+        <div class="flex items-center gap-2">
+          <div class="w-3 h-3 rounded-full bg-red-500"></div>
+          <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+          <div class="w-3 h-3 rounded-full bg-green-500"></div>
+          <span class="text-gray-400 text-xs ml-2 font-mono">script.py</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <button onclick="clearCode()" class="text-gray-500 hover:text-white text-xs px-2 py-1 rounded hover:bg-gray-800 transition">Reset</button>
+          <button id="run-btn" onclick="runCode()" class="flex items-center gap-2 bg-blue-600 hover:bg-blue-500 text-white text-xs px-4 py-1.5 rounded-lg transition font-medium">
+            Run Code
+          </button>
+        </div>
+      </div>
+      <div class="editor-wrap">
+        <textarea id="code-editor"></textarea>
+      </div>
+      <div class="output-panel">
+        <div class="flex items-center justify-between px-4 py-2 border-b border-gray-800">
+          <span class="text-gray-400 text-xs font-medium uppercase tracking-wider">Output</span>
+          <button onclick="clearOutput()" class="text-gray-600 hover:text-gray-400 text-xs transition">Clear</button>
+        </div>
+        <div id="output-area" class="p-4">
+          <p class="text-gray-600 text-xs font-mono">Run your code to see output here</p>
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  const editor = CodeMirror.fromTextArea(document.getElementById("code-editor"), {
+    mode: "python", theme: "dracula", lineNumbers: true,
+    autoCloseBrackets: true, indentUnit: 4, tabSize: 4,
+    extraKeys: { "Ctrl-Enter": runCode, "Tab": cm => cm.replaceSelection("    ") }
+  });
+
+  editor.setValue("# Try it yourself!\nprint(\"Hello, Pyshala!\")");
+
+  function toggleSidebar() {
+    document.getElementById("lesson-sidebar").classList.toggle("hidden");
+  }
+
+  async function runCode() {
+    const code = editor.getValue().trim();
+    if (!code) return;
+    const btn = document.getElementById("run-btn");
+    btn.innerHTML = "<div class=\"loader\"></div> Running...";
+    btn.disabled = true;
+    try {
+      const response = await fetch("/interpreter/run/", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ code: code })
+      });
+      const data = await response.json();
+      showOutput(data.output, data.error ? "error" : "success");
+    } catch(err) {
+      showOutput("Error: " + err.message, "error");
+    }
+    btn.innerHTML = "Run Code";
+    btn.disabled = false;
+  }
+
+  function showOutput(text, type) {
+    const colors = { success: "text-green-400", error: "text-red-400" };
+    const icons = { success: "OK", error: "ERR" };
+    document.getElementById("output-area").innerHTML =
+      "<div><span class=\"" + colors[type] + " text-xs font-mono font-bold\">" + icons[type] + "</span><pre class=\"" + colors[type] + " text-xs font-mono whitespace-pre-wrap mt-1\">" + escapeHtml(text) + "</pre></div>";
+  }
+
+  function escapeHtml(t) { return t.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+  function clearOutput() { document.getElementById("output-area").innerHTML = "<p class=\"text-gray-600 text-xs font-mono\">Run your code to see output here</p>"; }
+  function clearCode() { editor.setValue("# Try it yourself!\nprint(\"Hello, Pyshala!\")"); editor.focus(); }
+</script>
 {% endblock %}
