@@ -1,72 +1,93 @@
-# 🧪 PyShala – Secure Python Learning Platform
+# 🧪 PyShala – Secure Python Execution Platform
 
-An interactive platform for learning Python with a focus on **secure code execution and controlled environments**.
+A security-focused platform for learning Python with **sandboxed code execution and protection against malicious inputs**.
 
 ---
 
 ## 🚀 Overview
 
-PyShala allows users to write and execute Python code in a structured learning environment with built-in validation and testing.
+PyShala allows users to write and execute Python code in an interactive environment while ensuring **safe and controlled execution**.
 
-The platform is designed with **security-first principles**, ensuring safe execution of user-submitted code.
+The system is designed using **real-world cybersecurity principles** to prevent misuse and attacks.
 
 ---
 
-## 🛡️ Security Features (🔥 MOST IMPORTANT)
+## 🛡️ Security Features
 
 * Sandbox-based code execution
-* Input validation for user-submitted code
+* Input validation & sanitization
 * Restricted system access
-* Isolation of execution environment
 * Protection against malicious scripts
+* Execution limits to prevent infinite loops
+
+---
+
+## ⚠️ Threat Model
+
+This platform considers and mitigates the following threats:
+
+* Malicious Python code execution
+* Unauthorized file/system access
+* Infinite loop / resource exhaustion (DoS)
+* Injection-based attacks (SQL Injection, XSS)
+* Abuse of execution environment
+
+---
+
+## 🧪 Security Testing
+
+The platform has been tested against:
+
+* SQL Injection payloads
+* Cross-Site Scripting (XSS)
+* Command & code execution attempts
+* File access attacks
+* Infinite loop / DoS simulations
+
+---
+
+## 🛡️ Security Background
+
+This project is built using practical knowledge of cybersecurity concepts:
+
+* SQL Injection (Union, Blind, Time-based)
+* XSS (Cross-Site Scripting)
+* Command Injection
+* DoS attack techniques
+
+Experience with tools:
+
+* Burp Suite
+* OWASP ZAP
+* Nmap
+* Wireshark
+* Metasploit
 
 ---
 
 ## 🧠 Core Features
 
-* Interactive coding environment (Monaco Editor)
-* YAML-based modular lesson system ([PyPI][1])
+* Interactive coding environment
+* YAML-based modular lessons
 * Automated test case validation
-* Structured learning flow (Modules → Lessons)
-
----
-
-## ⚠️ Security Testing
-
-The platform has been tested against:
-
-* SQL Injection attempts
-* Cross-Site Scripting (XSS)
-* Malicious Python execution
-* Infinite loop / resource exhaustion attacks
-* Unauthorized file/system access
-
----
-
-## 🧪 Example Threat Scenarios
-
-```python
-# Infinite loop attack
-while True:
-    pass
-```
-
-```python
-# System access attempt
-import os
-os.system("ls")
-```
-
-👉 These are handled using sandbox restrictions and execution control.
+* Structured learning system
 
 ---
 
 ## ⚙️ Tech Stack
 
-* Python (Backend + Logic)
-* Reflex (Frontend + Backend Framework)
-* Monaco Editor (Code Editor)
-* YAML (Lesson Structure)
+* Python
+* Reflex Framework
+* Monaco Editor
+* YAML
+
+---
+
+## 📸 Screenshots
+
+![Editor](assets/editor.png)
+![Lesson](assets/lesson.png)
+![Output](assets/output.png)
 
 ---
 
@@ -74,14 +95,8 @@ os.system("ls")
 
 * Role-Based Access Control (RBAC)
 * Secure Authentication (JWT/OAuth)
-* Activity Logging & Monitoring
-* AWS Cloud Deployment with security best practices
-
----
-
-## 📸 Screenshots (ADD THIS)
-
-(Add images here — VERY IMPORTANT)
+* Logging & Monitoring
+* AWS Cloud deployment with security best practices
 
 ---
 
@@ -101,10 +116,8 @@ This project demonstrates:
 
 * Secure system design
 * Safe execution of untrusted code
-* Practical application of security principles
+* Practical application of cybersecurity concepts
 
 ---
 
-⭐ Designed with a focus on **Cloud & Application Security**
-
-[1]: https://pypi.org/project/pyshala/?utm_source=chatgpt.com "pyshala · PyPI"
+⭐ Designed with a focus on **Cloud & Cyber Security**
