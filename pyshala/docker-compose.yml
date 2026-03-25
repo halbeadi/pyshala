@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    restart: always
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    depends_on:
+      - db
+
+  db:
+    image: postgres:15
+    restart: always
+    environment:
+      POSTGRES_DB: pyshala_db
+      POSTGRES_USER: pyshala_user
+      POSTGRES_PASSWORD: pyshala123
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
