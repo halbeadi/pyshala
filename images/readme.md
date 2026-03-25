@@ -1,17 +1,16 @@
 
 ## 📸 Project Screenshots  
 
-### 🏠 Homepage  
-![Homepage](images/homepage.jpg)
+<p align="center">
+  <img src="images/homepage.jpg" width="45%" />
+  <img src="images/courses.jpg" width="45%" />
+</p>
 
-### 📚 Courses  
-![Courses](images/courses.jpg)
+<p align="center">
+  <img src="images/login.jpg" width="45%" />
+  <img src="images/dashboard.jpg" width="45%" />
+</p>
 
-### 🔐 Login  
-![Login](images/login.jpg)
-
-### 📊 Dashboard  
-![Dashboard](images/dashboard.jpg)
-
-### 💻 Code Editor  
-![Editor](images/editor.jpg)
+<p align="center">
+  <img src="images/editor.jpg" width="70%" />
+</p>
