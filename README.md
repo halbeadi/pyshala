@@ -134,3 +134,4 @@ This project demonstrates:
 
 ⭐ Designed with a focus on **Cloud & Cyber Security**
 #Trigger deployment
+# CI/CD fixed
