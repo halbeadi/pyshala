@@ -34,6 +34,15 @@ This platform considers and mitigates the following threats:
 
 ---
 
+## ⚙️ CI/CD Pipeline  
+
+- Designed and implemented CI/CD pipeline for automated build and deployment  
+- Streamlined code integration and release process  
+- Ensured consistent and reliable deployments to cloud environment  
+- Laid foundation for integrating security checks (DevSecOps)
+
+---
+
 ## 🧪 Security Testing
 
 The platform has been tested against:
