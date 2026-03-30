@@ -1,5 +1,7 @@
 # 🧪 PyShala – Secure Python Execution Platform
 
+🌐 **Live Demo:** http://your-domain.com  
+
 A security-focused platform for learning Python with **sandboxed code execution and protection against malicious inputs**.
 
 ---
@@ -12,13 +14,66 @@ The system is designed using **real-world cybersecurity principles** to prevent 
 
 ---
 
+## ⚙️ How It Works  
+
+1. User submits Python code via the web interface  
+2. Input is validated and sanitized  
+3. Code is executed in a restricted sandbox environment  
+4. Security checks prevent unsafe operations  
+5. Output is safely returned to the user  
+
+---
+
+## 🏗️ System Architecture  
+
+The platform follows a modular and secure architecture:
+
+1. **Frontend Layer**
+   - User interface for learning, coding, and interaction  
+   - Handles user input and displays results  
+
+2. **Backend Layer**
+   - Processes user requests  
+   - Manages authentication and business logic  
+
+3. **Code Execution Engine**
+   - Executes user-submitted Python code in a controlled environment  
+   - Applies security restrictions to prevent misuse  
+
+4. **Security Layer**
+   - Input validation and sanitization  
+   - Protection against XSS, SQL Injection, and code injection  
+   - Basic safeguards against resource abuse  
+
+5. **CI/CD Pipeline**
+   - Automates build and deployment process  
+   - Ensures consistent and reliable releases  
+
+6. **Cloud Deployment**
+   - Hosted on cloud infrastructure (AWS)  
+   - Scalable and accessible over the internet  
+
+---
+
+### 🔄 Request Flow  
+
+User → Frontend → Backend → Execution Engine → Output  
+                         ↓  
+                    Security Layer  
+                         ↓  
+                     AWS Cloud  
+                         ↓  
+                    CI/CD Pipeline  
+
+---
+
 ## 🛡️ Security Features
 
-* Sandbox-based code execution
-* Input validation & sanitization
-* Restricted system access
-* Protection against malicious scripts
-* Execution limits to prevent infinite loops
+* Sandboxed execution environment for untrusted code  
+* Input validation and sanitization to prevent injection attacks  
+* Restricted access to system-level resources  
+* Execution time and resource limits  
+* Protection against XSS, SQL Injection, and code injection  
 
 ---
 
@@ -26,11 +81,11 @@ The system is designed using **real-world cybersecurity principles** to prevent 
 
 This platform considers and mitigates the following threats:
 
-* Malicious Python code execution
-* Unauthorized file/system access
-* Infinite loop / resource exhaustion (DoS)
-* Injection-based attacks (SQL Injection, XSS)
-* Abuse of execution environment
+* Malicious Python code execution  
+* Unauthorized file/system access  
+* Infinite loop / resource exhaustion (DoS)  
+* Injection-based attacks (SQL Injection, XSS)  
+* Abuse of execution environment  
 
 ---
 
@@ -39,19 +94,21 @@ This platform considers and mitigates the following threats:
 - Designed and implemented CI/CD pipeline for automated build and deployment  
 - Streamlined code integration and release process  
 - Ensured consistent and reliable deployments to cloud environment  
-- Laid foundation for integrating security checks (DevSecOps)
+- Foundation for integrating security checks (DevSecOps)  
 
 ---
 
 ## 🧪 Security Testing
 
-The platform has been tested against:
+The platform has been actively tested against real-world attack scenarios:
 
-* SQL Injection payloads
-* Cross-Site Scripting (XSS)
-* Command & code execution attempts
-* File access attacks
-* Infinite loop / DoS simulations
+* SQL Injection (Union, Blind, Time-based)  
+* Cross-Site Scripting (XSS)  
+* Command & Code Injection  
+* Unauthorized file access attempts  
+* Infinite loop / Denial-of-Service (DoS)  
+
+Testing is ongoing to continuously improve system security.
 
 ---
 
@@ -59,40 +116,38 @@ The platform has been tested against:
 
 This project is built using practical knowledge of cybersecurity concepts:
 
-* SQL Injection (Union, Blind, Time-based)
-* XSS (Cross-Site Scripting)
-* Command Injection
-* DoS attack techniques
+* SQL Injection  
+* Cross-Site Scripting (XSS)  
+* Command Injection  
+* DoS attack techniques  
 
 Experience with tools:
 
-* Burp Suite
-* OWASP ZAP
-* Nmap
-* Wireshark
-* Metasploit
+* Burp Suite  
+* OWASP ZAP  
+* Nmap  
+* Wireshark  
+* Metasploit  
 
 ---
 
 ## 🧠 Core Features
 
-* Interactive coding environment
-* YAML-based modular lessons
-* Automated test case validation
-* Structured learning system
+* Interactive coding environment  
+* YAML-based modular lessons  
+* Automated test case validation  
+* Structured learning system  
 
 ---
 
 ## ⚙️ Tech Stack
 
-* Python
-* Reflex Framework
-* Monaco Editor
-* YAML
+* Python  
+* Reflex Framework  
+* Monaco Editor  
+* YAML  
 
 ---
-
-## 📸 Screenshots
 
 ## 📸 Project Screenshots  
 
@@ -112,35 +167,10 @@ Experience with tools:
 
 ---
 
-## 🚀 Future Enhancements
-
-* Role-Based Access Control (RBAC)
-* Secure Authentication (JWT/OAuth)
-* Logging & Monitoring
-* AWS Cloud deployment with security best practices
-
----
-
 ## 🛠️ Setup Instructions
 
 ```bash
 git clone https://github.com/halbeadi/pyshala.git
 cd pyshala
 pip install -r requirements.txt
-```
-
----
-
-## 📌 Why This Project Matters
-
-This project demonstrates:
-
-* Secure system design
-* Safe execution of untrusted code
-* Practical application of cybersecurity concepts
-
----
-
-⭐ Designed with a focus on **Cloud & Cyber Security**
-#Trigger deployment
-# CI/CD fixed
+python app.py
