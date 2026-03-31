@@ -201,3 +201,11 @@ LOGOUT_REDIRECT_URL = '/'
 
 # Anthropic AI
 ANTHROPIC_API_KEY = os.environ.get('ANTHROPIC_API_KEY', '')
+
+#Security Hardening
+SECURE_BROWSER_XSS_FILTER = True
+SECURE_CONTENT_TYPE_NOSNIFF = True
+X_FRAME_OPTIONS = 'DENY'
+SESSION_COOKIE_SECURE = False #Change to true after ssl
+CSRF_COOKIE_SECURE = False  #Change to true after ssl
+SECURE_SSL_REDIRECT = False  #Change to true after ssl
