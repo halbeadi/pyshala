@@ -67,6 +67,16 @@ User → Frontend → Backend → Execution Engine → Output
 
 ---
 
+## 🔐 Infrastructure Security Enhancements  
+
+- Fail2Ban configured for SSH brute-force protection  
+- Secure HTTP headers implemented via Nginx (Grade A)  
+- Rate limiting applied to authentication endpoints  
+- Django security best practices enforced  
+- AWS CloudTrail enabled for audit logging
+
+---
+
 ## 🛡️ Security Features
 
 * Sandboxed execution environment for untrusted code  
