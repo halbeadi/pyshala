@@ -47,9 +47,18 @@ The platform follows a modular and secure architecture:
 
 5. **CI/CD Pipeline**
    - Automates build and deployment process  
-   - Ensures consistent and reliable releases  
+   - Ensures consistent and reliable releases
 
-6. **Cloud Deployment**
+6. ## 🔐 Infrastructure Security Enhancements  
+
+- Implemented secure HTTP headers via Nginx (CSP, HSTS, X-Frame-Options, Permissions-Policy) achieving A-grade security rating  
+- Configured Fail2Ban for SSH brute-force protection with automated IP banning  
+- Applied rate limiting on authentication endpoints to prevent abuse and brute-force attacks  
+- Enabled AWS CloudTrail for audit logging and monitoring of API activity  
+- Performed security scanning using Nmap and Nikto with no critical vulnerabilities identified  
+- Conducted static application security testing (SAST) using Bandit with zero high/medium severity issues  
+
+7. **Cloud Deployment**
    - Hosted on cloud infrastructure (AWS)  
    - Scalable and accessible over the internet  
 
