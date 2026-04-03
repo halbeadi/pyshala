@@ -1,6 +1,6 @@
 # 🧪 PyShala – Secure Python Execution Platform
 
-🌐 **Live Demo:** Temporarily offline (under security improvements & optimization)  
+🌐 **Live Demo:** https://www.pyshala.in  
 
 A security-focused platform for learning Python with **sandboxed code execution and protection against malicious inputs**.
 
@@ -88,7 +88,8 @@ User → Frontend → Backend → Execution Engine → Output
 
 ## 🛡️ Security Features
 
-* Sandboxed execution environment for untrusted code  
+* Secure deployment with HTTPS enabled
+* Sandboxed execution environment for untrusted code
 * Input validation and sanitization to prevent injection attacks  
 * Restricted access to system-level resources  
 * Execution time and resource limits  
