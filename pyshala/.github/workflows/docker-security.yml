@@ -1,0 +1,32 @@
+name: Docker Security Scan
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build-and-scan:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build Docker image
+        run: docker build -t pyshala-app .
+
+      - name: Run Trivy vulnerability scan
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: pyshala-app
+          format: table
+          exit-code: '0'
+          severity: HIGH,CRITICAL
+          output: trivy-report.txt
+
+      - name: Upload Trivy report
+        uses: actions/upload-artifact@v4
+        with:
+          name: trivy-scan-report
+          path: trivy-report.txt

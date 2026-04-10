@@ -4,7 +4,7 @@ anyio==4.12.1
 asgiref==3.11.1
 certifi==2026.2.25
 distro==1.9.0
-Django==6.0.3
+Django==6.0.4
 docstring_parser==0.17.0
 gunicorn==25.1.0
 h11==0.16.0
